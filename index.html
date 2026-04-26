@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Valley Beats</title>
+  <style>
+    :root {
+      --blue:#3b6f8f;
+      --yellow:#ffd84d;
+      --dark:#0f172a;
+      --light:#f8fafc;
+    }
+
+    body {
+      margin:0;
+      font-family: 'Segoe UI', sans-serif;
+      color:var(--light);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,216,77,0.08), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(59,111,143,0.15), transparent 50%),
+        linear-gradient(180deg,#020617,#0f172a);
+    }
+
+    header {
+      text-align:center;
+      padding:30px 20px;
+    }
+
+    header img {
+      max-width:260px;
+      filter: drop-shadow(0 0 15px rgba(255,216,77,.4));
+    }
+
+    nav {
+      margin-top:15px;
+    }
+
+    nav a {
+      color:var(--yellow);
+      margin:0 12px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    section {
+      max-width:1100px;
+      margin:auto;
+      padding:70px 20px;
+      text-align:center;
+    }
+
+    h1 { font-size:2.4em; }
+
+    h2 {
+      color:var(--yellow);
+      margin-bottom:25px;
+    }
+
+    .hero-img {
+      width:100%;
+      max-width:700px;
+      border-radius:16px;
+      margin-top:30px;
+      box-shadow:0 10px 30px rgba(0,0,0,.5);
+    }
+
+    .cards {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    .card {
+      background:#1e293b;
+      padding:25px;
+      border-radius:14px;
+      transition:.3s;
+    }
+
+    .card img {
+      width:100%;
+      border-radius:10px;
+      margin-bottom:15px;
+    }
+
+    .card:hover {
+      transform:translateY(-8px);
+      box-shadow:0 15px 35px rgba(0,0,0,.5);
+    }
+
+    .btn {
+      display:inline-block;
+      margin-top:25px;
+      padding:14px 26px;
+      background:var(--yellow);
+      color:#000;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .process {
+      display:grid;
+      gap:15px;
+      max-width:600px;
+      margin:auto;
+    }
+
+    .process-step {
+      padding:15px;
+      background:#1e293b;
+      border-radius:10px;
+    }
+
+    footer {
+      background:#020617;
+      padding:30px;
+      text-align:center;
+      font-size:.9em;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="/mnt/data/1bccac1e-f0c3-46a0-96f0-258548934779.png" alt="Blue Valley Beats logo">
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section>
+  <h1>🎧 KC Dads Who Know How to Party</h1>
+  <p>Justin & Brad bringing clean, fun DJ energy to weddings, school dances, and parties.</p>
+  <a href="https://forms.gle/YOURFORM" target="_blank" class="btn">Get a Quote</a>
+
+  <img class="hero-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="DJ party">
+</section>
+
+<section id="services">
+  <h2>Services & Pricing</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf">
+      <h3>💍 Weddings</h3>
+      <p>Starting at $800</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063">
+      <h3>🎉 School & Youth Events</h3>
+      <p>Starting at $400</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30">
+      <h3>🎈 Private Parties</h3>
+      <p>Starting at $500</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:50px;">Add-Ons</h3>
+  <div class="cards">
+    <div class="card">✨ Lighting Package</div>
+    <div class="card">⏱ Extra Hours</div>
+    <div class="card">🎤 MC Services</div>
+  </div>
+</section>
+
+<section id="process">
+  <h2>How It Works</h2>
+  <div class="process">
+    <div class="process-step">1️⃣ Fill out the form</div>
+    <div class="process-step">2️⃣ Get your quote</div>
+    <div class="process-step">3️⃣ Lock your date</div>
+    <div class="process-step">4️⃣ We bring the party 🎉</div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Ready to Book?</h2>
+  <a href="https://forms.gle/YOURFORM" target="_blank" class="btn">Start Booking</a>
+  <p style="margin-top:20px;">bluevalleybeats@gmail.com</p>
+</section>
+
+<footer>
+  <p>Blue Valley Beats • Kansas City DJs • Good vibes only 🎶</p>
+</footer>
+
+</body>
+</html>
