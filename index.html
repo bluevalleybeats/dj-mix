@@ -1,196 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blue Valley Beats</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blue Valley Beats — Kansas City DJs for weddings, youth dances, graduation parties, school events, private parties, and more." />
+  <title>Blue Valley Beats | Kansas City DJs</title>
+
   <style>
     :root {
-      --blue:#3b6f8f;
-      --yellow:#ffd84d;
-      --dark:#0f172a;
-      --light:#f8fafc;
+      --blue: #0878ff;
+      --blue-dark: #03152d;
+      --yellow: #ffd21f;
+      --gold: #ffb800;
+      --white: #f8fbff;
+      --muted: #b9c5d6;
+      --panel: rgba(5, 18, 38, .82);
+      --border: rgba(0, 132, 255, .55);
+      --max: 1180px;
     }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
-      margin:0;
-      font-family: 'Segoe UI', sans-serif;
-      color:var(--light);
+      margin: 0;
+      color: var(--white);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,216,77,0.08), transparent 40%),
-        radial-gradient(circle at 80% 0%, rgba(59,111,143,0.15), transparent 50%),
-        linear-gradient(180deg,#020617,#0f172a);
+        radial-gradient(circle at 15% 15%, rgba(0, 117, 255, .15), transparent 30rem),
+        radial-gradient(circle at 85% 35%, rgba(255, 210, 31, .08), transparent 28rem),
+        linear-gradient(135deg, #01050b, #061326 48%, #02060d);
+      overflow-x: hidden;
     }
 
-    header {
-      text-align:center;
-      padding:30px 20px;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
     }
 
-    header img {
-      max-width:260px;
-      filter: drop-shadow(0 0 15px rgba(255,216,77,.4));
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
     }
 
-    nav {
-      margin-top:15px;
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      background: rgba(1, 7, 15, .82);
+      border-bottom: 1px solid rgba(255,255,255,.07);
     }
 
-    nav a {
-      color:var(--yellow);
-      margin:0 12px;
-      text-decoration:none;
-      font-weight:bold;
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
     }
 
-    section {
-      max-width:1100px;
-      margin:auto;
-      padding:50px 20px;
-      text-align:center;
+    .brand img {
+      width: 145px;
+      max-height: 68px;
+      object-fit: contain;
     }
 
-    #first{
-      padding:20px 20px;
-    }
-    h1 { font-size:2.4em; }
-
-    h2 {
-      color:var(--yellow);
-      margin-bottom:25px;
-    }
-
-    .hero-img {
-      width:100%;
-      max-width:700px;
-      border-radius:16px;
-      margin-top:30px;
-      box-shadow:0 10px 30px rgba(0,0,0,.5);
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
     }
 
-    .cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:25px;
+    .nav-links a {
+      text-decoration: none;
+      color: #e8eef8;
+      transition: color .2s ease;
     }
 
-    .card {
-      background:#1e293b;
-      padding:25px;
-      border-radius:14px;
-      transition:.3s;
-    }
+    .nav-links a:hover { color: var(--yellow); }
 
-    .card img {
-      width:100%;
-      border-radius:10px;
-      margin-bottom:15px;
-    }
-
-    .card:hover {
-      transform:translateY(-8px);
-      box-shadow:0 15px 35px rgba(0,0,0,.5);
+    .menu-button {
+      display: none;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: white;
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
     }
 
     .btn {
-      display:inline-block;
-      margin-top:25px;
-      padding:14px 26px;
-      background:var(--yellow);
-      color:#000;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:bold;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: var(--yellow);
+      color: #080b10;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      text-decoration: none;
+      box-shadow: 0 0 24px rgba(255, 210, 31, .16);
+      transition: transform .2s ease, box-shadow .2s ease;
+      cursor: pointer;
     }
 
-    .process {
-      display:grid;
-      gap:15px;
-      max-width:600px;
-      margin:auto;
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(255, 210, 31, .28);
     }
 
-    .process-step {
-      padding:15px;
-      background:#1e293b;
-      border-radius:10px;
+    .btn.secondary {
+      background: rgba(2, 16, 34, .65);
+      color: white;
+      border-color: var(--blue);
+      box-shadow: none;
+    }
+
+    .hero {
+      min-height: 700px;
+      display: grid;
+      align-items: center;
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.72) 38%, rgba(0,0,0,.18) 75%),
+        url("images/hero.jpg") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 70% 45%, rgba(0, 115, 255, .22), transparent 25rem),
+        linear-gradient(0deg, #02060d 0%, transparent 28%);
+    }
+
+    .hero-content {
+      padding: 95px 0 105px;
+      max-width: 670px;
+    }
+
+    .eyebrow {
+      color: var(--yellow);
+      font-weight: 950;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      font-size: .9rem;
+      margin-bottom: 15px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: .98;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.1rem);
+      margin-bottom: 22px;
+      font-weight: 1000;
+      letter-spacing: -.045em;
+    }
+
+    .paint {
+      color: var(--yellow);
+      font-style: italic;
+      text-shadow: 0 3px 0 #1b75d0;
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: #d5deeb;
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    section { padding: 88px 0; }
+
+    .section-kicker {
+      color: var(--yellow);
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 9px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      margin-bottom: 48px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(7, 24, 48, .9), rgba(2, 12, 26, .92));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+
+    .service-image {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      width: 100%;
+      background: linear-gradient(135deg, #06152a, #0a3561);
+    }
+
+    .card-body { padding: 20px; }
+
+    .icon {
+      font-size: 1.65rem;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 9px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: .92rem;
+    }
+
+    .steps {
+      background:
+        linear-gradient(rgba(2,10,20,.84), rgba(2,10,20,.94)),
+        url("images/process-bg.jpg") center/cover;
+      border-block: 1px solid rgba(0, 132, 255, .18);
+    }
+
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+
+    .step-number {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--yellow);
+      font-size: 1.5rem;
+      font-weight: 1000;
+      border: 2px solid var(--blue);
+      box-shadow: 0 0 28px rgba(0, 120, 255, .24);
+      background: #031328;
+    }
+
+    .step h3 { font-size: 1.05rem; }
+    .step p { color: var(--muted); line-height: 1.55; }
+
+    .split {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .feature-panel {
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 32px;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(0, 120, 255, .14), transparent 20rem),
+        rgba(4, 17, 34, .86);
+    }
+
+    .feature-panel h2 {
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+    }
+
+    .feature-panel p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .addon-list {
+      display: grid;
+      gap: 11px;
+      margin-top: 24px;
+    }
+
+    .addon {
+      display: flex;
+      gap: 11px;
+      align-items: center;
+      color: #eef5ff;
+      font-weight: 800;
+    }
+
+    .addon span { color: var(--yellow); }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 132, 255, .35);
+      transition: transform .25s ease, filter .25s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.025);
+      filter: brightness(1.1);
+    }
+
+    .about {
+      text-align: center;
+      max-width: 850px;
+      margin-inline: auto;
+    }
+
+    .about p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .cta {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0, 126, 255, .28), transparent 26rem),
+        linear-gradient(135deg, #06182f, #020711);
+      border-block: 1px solid var(--border);
+    }
+
+    .cta h2 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     footer {
-      background:#020617;
-      padding:30px;
-      text-align:center;
-      font-size:.9em;
+      padding: 35px 0;
+      background: #01050b;
+      color: #8997aa;
+      text-align: center;
+      font-size: .9rem;
     }
 
+    footer strong { color: white; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1050px) {
+      .services { grid-template-columns: repeat(3, 1fr); }
+      .step-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 70px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px;
+        background: rgba(1, 7, 15, .98);
+        border: 1px solid rgba(0, 132, 255, .35);
+        border-radius: 12px;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 14px; }
+      .menu-button { display: block; }
+      .nav .nav-quote { display: none; }
+
+      .hero {
+        min-height: 670px;
+        background-position: 62% center;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: rgba(0,0,0,.34);
+      }
+
+      .hero-content { padding: 80px 0; }
+      h1 { font-size: clamp(2.9rem, 15vw, 4.5rem); }
+
+      .services,
+      .step-grid,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 65px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-<header>
-  <img src="/mnt/data/1bccac1e-f0c3-46a0-96f0-258548934779.png" alt="Blue Valley Beats logo">
-  <nav>
-    <a href="#services">Services</a>
-    <a href="#process">Process</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!--
+    BLUE VALLEY BEATS
+    GitHub Pages setup:
+    1. Put this file at the root of your repository as index.html.
+    2. Create an "images" folder.
+    3. Put your photos in that folder using the filenames listed below.
+    4. Replace GOOGLE_FORM_URL with your actual Google Form URL.
+  -->
 
-<section id="first">
-  <h1>🎧 KC Dads Who Know How to Party</h1>
-  <p>Justin & Brad bringing clean, fun DJ energy to weddings, school dances, and parties.</p>
-  <p><img class="hero-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="DJ party"></p>
-  <p> <a href="https://forms.gle/YOURFORM" target="_blank" class="btn">Get a Quote</a></p>
-</section>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Blue Valley Beats home">
+        <img src="images/BVBLogoV7.png" alt="Blue Valley Beats logo">
+      </a>
 
-  
-<section id="services">
-  <h2>Services & Pricing</h2>
-  <div class="cards">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf">
-      <h3>💍 Weddings</h3>
-      <p>Starting at $800</p>
+      <button class="menu-button" id="menuButton" aria-label="Open navigation">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#addons">Add-Ons</a>
+        <a href="#process">How It Works</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="btn nav-quote" href="GOOGLE_FORM_URL" target="_blank" rel="noopener">Get a Quote</a>
     </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063">
-      <h3>🎉 School & Youth Events</h3>
-      <p>Starting at $400</p>
+  </header>
+
+  <main id="home">
+
+    <section class="hero">
+      <div class="container hero-content reveal">
+        <div class="eyebrow">Kansas City • Family-Friendly • Ready to Party</div>
+        <h1>
+          Kansas City's<br>
+          <span class="paint">Family-Friendly DJs</span><br>
+          That Know How To<br>
+          Bring The Party!
+        </h1>
+        <p>
+          From weddings and youth dances to graduation parties and school events,
+          Blue Valley Beats delivers unforgettable music, professional sound,
+          and clean fun for every event.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="GOOGLE_FORM_URL" target="_blank" rel="noopener">✉ Get a Quote</a>
+          <a class="btn secondary" href="#services">See Our Services ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-kicker">Our Services</div>
+        <h2 class="section-title">We Bring The Music. You Bring The Crowd.</h2>
+
+        <div class="services">
+          <article class="card reveal">
+            <img class="service-image" src="images/wedding.jpg" alt="Wedding dance floor">
+            <div class="card-body">
+              <div class="icon">💍</div>
+              <h3>Wedding DJ</h3>
+              <p>From the ceremony to the last dance, we'll help keep your celebration moving.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <img class="service-image" src="images/youth-dance.jpg" alt="Energetic youth dance">
+            <div class="card-body">
+              <div class="icon">🎉</div>
+              <h3>School & Youth Events</h3>
+              <p>Clean music, big energy, and a dance floor kids and families can enjoy.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <img class="service-image" src="images/graduation.jpg" alt="Graduation celebration">
+            <div class="card-body">
+              <div class="icon">🎓</div>
+              <h3>Graduation Parties</h3>
+              <p>Celebrate the milestone with the right soundtrack and a party they'll remember.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <img class="service-image" src="images/private-party.jpg" alt="Private party dance floor">
+            <div class="card-body">
+              <div class="icon">🎈</div>
+              <h3>Private Parties</h3>
+              <p>Birthdays, anniversaries, neighborhood parties, and any excuse to have a great time.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <img class="service-image" src="images/corporate.jpg" alt="Corporate event">
+            <div class="card-body">
+              <div class="icon">💼</div>
+              <h3>Corporate Events</h3>
+              <p>Professional sound and an easygoing experience for company celebrations and events.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps" id="process">
+      <div class="container">
+        <div class="section-kicker">How It Works</div>
+        <h2 class="section-title">Easy. Simple. Let's Party.</h2>
+
+        <div class="step-grid">
+          <article class="step reveal">
+            <div class="step-number">1</div>
+            <h3>Tell Us About Your Event</h3>
+            <p>Fill out our quick form with the basics and what you're looking for.</p>
+          </article>
+
+          <article class="step reveal">
+            <div class="step-number">2</div>
+            <h3>Receive Your Custom Quote</h3>
+            <p>We'll learn what you need and put together a plan for your event.</p>
+          </article>
+
+          <article class="step reveal">
+            <div class="step-number">3</div>
+            <h3>Reserve Your Date</h3>
+            <p>Lock in your date and we'll take it from there.</p>
+          </article>
+
+          <article class="step reveal">
+            <div class="step-number">4</div>
+            <h3>We Bring The Party!</h3>
+            <p>We show up, set up, and make your event one to remember.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="addons">
+      <div class="container split">
+        <div class="feature-panel reveal">
+          <div class="section-kicker" style="text-align:left;">Add-On Services</div>
+          <h2>Take It Up A Notch.</h2>
+          <p>
+            Want more lights, more time, or a little help keeping the event moving?
+            We've got options to make your setup fit the occasion.
+          </p>
+
+          <div class="addon-list">
+            <div class="addon"><span>✓</span> Lighting Packages</div>
+            <div class="addon"><span>✓</span> Wireless Microphones</div>
+            <div class="addon"><span>✓</span> MC Services</div>
+            <div class="addon"><span>✓</span> Extra Hours</div>
+            <div class="addon"><span>✓</span> Custom Playlist Planning</div>
+            <div class="addon"><span>✓</span> Dance Floor Lighting</div>
+          </div>
+        </div>
+
+        <div class="feature-panel reveal" id="gallery">
+          <div class="section-kicker" style="text-align:left;">Recent Events</div>
+          <h2>Good Music. Good People. Great Nights.</h2>
+          <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Blue Valley Beats event">
+            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063" alt="Blue Valley Beats dance floor">
+            <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf" alt="Blue Valley Beats wedding">
+            <img src="images/gallery-4.jpg" alt="Blue Valley Beats DJ setup">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Blue Valley Beats party">
+            <img src="images/gallery-6.jpg" alt="Blue Valley Beats event lighting">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about reveal">
+        <div class="section-kicker">About Us</div>
+        <h2 class="section-title">Two Dads. One Mission.</h2>
+        <p>
+          We're Justin and Brad — a couple of dads who love music, great events,
+          and seeing people have an awesome time. We're local to Kansas City,
+          easy to work with, and committed to bringing a professional setup
+          with a fun, family-friendly vibe.
+        </p>
+        <p>
+          Whether we're rocking a youth dance, helping a couple celebrate their
+          wedding, or keeping a graduation party moving, our goal is always the same:
+          <strong>make your event unforgettable.</strong>
+        </p>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container reveal">
+        <div class="section-kicker">Let's Get This Party Started</div>
+        <h2>Make Your Event Amazing!</h2>
+        <p>We're local. We're professional. And we can't wait to make your event one to remember.</p>
+
+        <div class="contact-row">
+          <a class="btn" href="GOOGLE_FORM_URL" target="_blank" rel="noopener">Get a Quote →</a>
+          <a class="btn secondary" href="mailto:bluevalleybeats@gmail.com">✉ bluevalleybeats@gmail.com</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>BLUE VALLEY BEATS</strong> • Kansas City DJ Services<br>
+      <span>Two Dads. One Mission. Make Your Event Unforgettable.</span>
     </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30">
-      <h3>🎈 Private Parties</h3>
-      <p>Starting at $500</p>
-    </div>
-  </div>
+  </footer>
 
-  <h3 style="margin-top:50px;">Add-Ons</h3>
-  <div class="cards">
-    <div class="card">✨ Lighting Package</div>
-    <div class="card">⏱ Extra Hours</div>
-    <div class="card">🎤 MC Services</div>
-  </div>
-</section>
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
 
-<section id="process">
-  <h2>How It Works</h2>
-  <div class="process">
-    <div class="process-step">1️⃣ Fill out the form</div>
-    <div class="process-step">2️⃣ Get your quote</div>
-    <div class="process-step">3️⃣ Lock your date</div>
-    <div class="process-step">4️⃣ We bring the party 🎉</div>
-  </div>
-</section>
+    menuButton.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
 
-<section id="contact">
-  <h2>Ready to Book?</h2>
-  <a href="https://forms.gle/YOURFORM" target="_blank" class="btn">Start Booking</a>
-  <p style="margin-top:20px;">bluevalleybeats@gmail.com</p>
-</section>
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => navLinks.classList.remove("open"));
+    });
 
-<footer>
-  <p>Blue Valley Beats • Kansas City DJs • Good vibes only 🎶</p>
-</footer>
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
