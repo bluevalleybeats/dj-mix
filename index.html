@@ -146,7 +146,7 @@
       isolation: isolate;
       background:
         linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.72) 38%, rgba(0,0,0,.18) 75%),
-        url("images/hero.jpg") center/cover no-repeat;
+        url("https://images.pexels.com/photos/12787862/pexels-photo-12787862.jpeg?auto=compress&cs=tinysrgb&w=1800&h=1100&dpr=1") center/cover no-repeat;
     }
 
     .hero::after {
@@ -161,8 +161,30 @@
 
     .hero-content {
       padding: 95px 0 105px;
-      max-width: 670px;
+      max-width: 980px;
     }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 46px;
+    }
+
+    .hero-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-logo {
+      width: min(300px, 30vw);
+      min-width: 190px;
+      height: auto;
+      filter: drop-shadow(0 18px 34px rgba(0, 0, 0, .55));
+    }
+
+    .hero-copy { max-width: 620px; }
 
     .eyebrow {
       color: var(--yellow);
@@ -265,8 +287,8 @@
 
     .steps {
       background:
-        linear-gradient(rgba(2,10,20,.84), rgba(2,10,20,.94)),
-        url("images/process-bg.jpg") center/cover;
+        linear-gradient(rgba(2,10,20,.88), rgba(2,10,20,.94)),
+        url("https://images.pexels.com/photos/15349818/pexels-photo-15349818/free-photo-of-light-over-dj.jpeg?w=1800&h=1000&dpr=1") center/cover;
       border-block: 1px solid rgba(0, 132, 255, .18);
     }
 
@@ -401,6 +423,76 @@
       gap: 15px;
     }
 
+    .quote-form {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: left;
+      display: grid;
+      gap: 16px;
+      background: rgba(4, 17, 34, .86);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 32px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-field { display: grid; gap: 6px; }
+
+    .form-field label {
+      font-size: .78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      background: #03101f;
+      border: 1px solid rgba(0, 132, 255, .35);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 12px 14px;
+      font: inherit;
+      font-size: .95rem;
+      width: 100%;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: 2px solid var(--yellow);
+      outline-offset: 1px;
+      border-color: var(--yellow);
+    }
+
+    .form-field textarea { resize: vertical; }
+
+    .quote-form .btn {
+      justify-self: start;
+      border: none;
+    }
+
+    .quote-form .btn:disabled {
+      opacity: .65;
+      cursor: default;
+      transform: none;
+    }
+
+    .form-status {
+      margin: 0;
+      font-size: .88rem;
+      color: var(--muted);
+      min-height: 1.2em;
+    }
+
+    .form-status.success { color: #7cffb2; }
+    .form-status.error { color: #ff8a8a; }
+
     footer {
       padding: 35px 0;
       background: #01050b;
@@ -464,6 +556,17 @@
       .hero-content { padding: 80px 0; }
       h1 { font-size: clamp(2.9rem, 15vw, 4.5rem); }
 
+      .hero-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 26px;
+      }
+
+      .hero-logo { width: min(220px, 55vw); min-width: 0; }
+      .hero-copy { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+
       .services,
       .step-grid,
       .split {
@@ -472,6 +575,8 @@
 
       .gallery { grid-template-columns: repeat(2, 1fr); }
       section { padding: 65px 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .quote-form { padding: 24px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -490,9 +595,12 @@
     BLUE VALLEY BEATS
     GitHub Pages setup:
     1. Put this file at the root of your repository as index.html.
-    2. Create an "images" folder.
-    3. Put your photos in that folder using the filenames listed below.
-    4. Replace GOOGLE_FORM_URL with your actual Google Form URL.
+    2. Make sure the "images" folder contains BVBLogoV7.png (already present).
+       All other photos are hosted externally (Unsplash / Pexels), so no other
+       image files are required — swap them for your own event photos any time.
+    3. To connect the "Tell Us About Your Event" form to your Google Sheet +
+       email notifications, follow SETUP-QUOTE-FORM.md, then paste your Apps
+       Script web app URL into QUOTE_FORM_ENDPOINT near the bottom of this file.
   -->
 
   <header class="topbar">
@@ -513,7 +621,7 @@
         <a href="#contact">Contact</a>
       </nav>
 
-      <a class="btn nav-quote" href="GOOGLE_FORM_URL" target="_blank" rel="noopener">Get a Quote</a>
+      <a class="btn nav-quote" href="#contact">Get a Quote</a>
     </div>
   </header>
 
@@ -521,23 +629,29 @@
 
     <section class="hero">
       <div class="container hero-content reveal">
-        <div class="eyebrow">Kansas City • Family-Friendly • Ready to Party</div>
-        <img style="float:right;" src="images/BVBLogoV7.png" alt="Blue Valley Beats logo">
-        <h1>
-          Kansas City's<br>
-          <span class="paint">Family-Friendly DJs</span><br>
-          That Know How To<br>
-          Bring The Party!
-        </h1>
-        <p>
-          From weddings and youth dances to graduation parties and school events,
-          Blue Valley Beats delivers unforgettable music, professional sound,
-          and clean fun for every event.
-        </p>
+        <div class="hero-grid">
+          <div class="hero-logo-wrap">
+            <img class="hero-logo" src="images/BVBLogoV7.png" alt="Blue Valley Beats logo">
+          </div>
+          <div class="hero-copy">
+            <div class="eyebrow">Kansas City • Family-Friendly • Ready to Party</div>
+            <h1>
+              Kansas City's<br>
+              <span class="paint">Family-Friendly DJs</span><br>
+              That Know How To<br>
+              Bring The Party!
+            </h1>
+            <p>
+              From weddings and youth dances to graduation parties and school events,
+              Blue Valley Beats delivers unforgettable music, professional sound,
+              and clean fun for every event.
+            </p>
 
-        <div class="hero-actions">
-          <a class="btn" href="GOOGLE_FORM_URL" target="_blank" rel="noopener">✉ Get a Quote</a>
-          <a class="btn secondary" href="#services">See Our Services ↓</a>
+            <div class="hero-actions">
+              <a class="btn" href="#contact">✉ Get a Quote</a>
+              <a class="btn secondary" href="#services">See Our Services ↓</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -549,7 +663,7 @@
 
         <div class="services">
           <article class="card reveal">
-            <img class="service-image" src="images/wedding.jpg" alt="Wedding dance floor">
+            <img class="service-image" src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80" alt="Wedding dance floor">
             <div class="card-body">
               <div class="icon">💍</div>
               <h3>Wedding DJ</h3>
@@ -558,7 +672,7 @@
           </article>
 
           <article class="card reveal">
-            <img class="service-image" src="images/youth-dance.jpg" alt="Energetic youth dance">
+            <img class="service-image" src="https://images.pexels.com/photos/12793113/pexels-photo-12793113.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Energetic youth dance">
             <div class="card-body">
               <div class="icon">🎉</div>
               <h3>School & Youth Events</h3>
@@ -567,7 +681,7 @@
           </article>
 
           <article class="card reveal">
-            <img class="service-image" src="images/graduation.jpg" alt="Graduation celebration">
+            <img class="service-image" src="https://images.pexels.com/photos/2513993/pexels-photo-2513993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Graduation celebration">
             <div class="card-body">
               <div class="icon">🎓</div>
               <h3>Graduation Parties</h3>
@@ -576,7 +690,7 @@
           </article>
 
           <article class="card reveal">
-            <img class="service-image" src="images/private-party.jpg" alt="Private party dance floor">
+            <img class="service-image" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Private party dance floor">
             <div class="card-body">
               <div class="icon">🎈</div>
               <h3>Private Parties</h3>
@@ -585,7 +699,7 @@
           </article>
 
           <article class="card reveal">
-            <img class="service-image" src="images/corporate.jpg" alt="Corporate event">
+            <img class="service-image" src="https://images.pexels.com/photos/34294537/pexels-photo-34294537.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1" alt="Corporate event">
             <div class="card-body">
               <div class="icon">💼</div>
               <h3>Corporate Events</h3>
@@ -653,12 +767,12 @@
           <div class="section-kicker" style="text-align:left;">Recent Events</div>
           <h2>Good Music. Good People. Great Nights.</h2>
           <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Blue Valley Beats event">
-            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063" alt="Blue Valley Beats dance floor">
-            <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf" alt="Blue Valley Beats wedding">
-            <img src="images/gallery-4.jpg" alt="Blue Valley Beats DJ setup">
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Blue Valley Beats party">
-            <img src="images/gallery-6.jpg" alt="Blue Valley Beats event lighting">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=700&q=80" alt="Blue Valley Beats event">
+            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=700&q=80" alt="Blue Valley Beats dance floor">
+            <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=700&q=80" alt="Blue Valley Beats wedding">
+            <img src="https://images.pexels.com/photos/30831640/pexels-photo-30831640/free-photo-of-dramatic-concert-stage-with-colorful-light-show.jpeg?auto=compress&cs=tinysrgb&w=700&h=500&dpr=1" alt="Blue Valley Beats DJ setup">
+            <img src="https://images.pexels.com/photos/12793113/pexels-photo-12793113.jpeg?auto=compress&cs=tinysrgb&w=700&h=500&dpr=1" alt="Blue Valley Beats party">
+            <img src="https://images.pexels.com/photos/15752170/pexels-photo-15752170/free-photo-of-dj-playing-music-on-stage.jpeg?auto=compress&cs=tinysrgb&w=700&h=500&dpr=1" alt="Blue Valley Beats event lighting">
           </div>
         </div>
       </div>
@@ -667,9 +781,9 @@
     <section id="about">
       <div class="container about reveal">
         <div class="section-kicker">About Us</div>
-        <h2 class="section-title">Two Dads. One Mission.</h2>
+        <h2 class="section-title">Kansas City Locals. Family-Run. Ready To Party.</h2>
         <p>
-          We're Justin and Brad — a couple of dads who love music, great events,
+          We're Justin and Brad, lifelong friends who love music, great events,
           and seeing people have an awesome time. We're local to Kansas City,
           easy to work with, and committed to bringing a professional setup
           with a fun, family-friendly vibe.
@@ -685,11 +799,49 @@
     <section class="cta" id="contact">
       <div class="container reveal">
         <div class="section-kicker">Let's Get This Party Started</div>
-        <h2>Make Your Event Amazing!</h2>
-        <p>We're local. We're professional. And we can't wait to make your event one to remember.</p>
+        <h2>Tell Us About Your Event</h2>
+        <p>Fill out the form below and we'll follow up with a custom quote — usually within a day or two.</p>
 
-        <div class="contact-row">
-          <a class="btn" href="GOOGLE_FORM_URL" target="_blank" rel="noopener">Get a Quote →</a>
+        <form id="quoteForm" class="quote-form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="firstName">First name</label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+            </div>
+            <div class="form-field">
+              <label for="lastName">Last name</label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+            </div>
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="eventDate">Event date</label>
+              <input type="date" id="eventDate" name="eventDate" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="comments">Tell us about your event</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Event type, venue, guest count, vibe — anything that helps us plan."></textarea>
+          </div>
+
+          <button type="submit" class="btn" id="quoteSubmitBtn">Send Request</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="contact-row" style="margin-top:8px;">
           <a class="btn secondary" href="mailto:bluevalleybeats@gmail.com">✉ bluevalleybeats@gmail.com</a>
         </div>
       </div>
@@ -700,7 +852,7 @@
   <footer>
     <div class="container">
       <strong>BLUE VALLEY BEATS</strong> • Kansas City DJ Services<br>
-      <span>Two Dads. One Mission. Make Your Event Unforgettable.</span>
+      <span>Great Music. Awesome Lighting. Good Times.</span>
     </div>
   </footer>
 
@@ -729,6 +881,52 @@
     );
 
     document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // ---- Quote request form ----
+    // 1. Follow SETUP-QUOTE-FORM.md to deploy the Apps Script web app.
+    // 2. Paste the resulting URL below, replacing the placeholder.
+    const QUOTE_FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbyg1FoTd54Zyl92L29_lxpu40dqT0v_rPNOc93uw0O45rusdh7RzrMprQqZV5EYX3eTGw/exec";
+
+    const quoteForm = document.getElementById("quoteForm");
+    const formStatus = document.getElementById("formStatus");
+    const quoteSubmitBtn = document.getElementById("quoteSubmitBtn");
+
+    if (quoteForm) {
+      quoteForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (QUOTE_FORM_ENDPOINT.indexOf("PASTE_YOUR_") === 0) {
+          formStatus.textContent = "This form isn't connected yet — see SETUP-QUOTE-FORM.md.";
+          formStatus.className = "form-status error";
+          return;
+        }
+
+        const data = new FormData(quoteForm);
+        quoteSubmitBtn.disabled = true;
+        quoteSubmitBtn.textContent = "Sending…";
+        formStatus.textContent = "";
+        formStatus.className = "form-status";
+
+        fetch(QUOTE_FORM_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          body: data
+        })
+          .then(() => {
+            formStatus.textContent = "Thanks! We got your request and will follow up soon.";
+            formStatus.className = "form-status success";
+            quoteForm.reset();
+          })
+          .catch(() => {
+            formStatus.textContent = "Something went wrong. Please email us directly at bluevalleybeats@gmail.com.";
+            formStatus.className = "form-status error";
+          })
+          .finally(() => {
+            quoteSubmitBtn.disabled = false;
+            quoteSubmitBtn.textContent = "Send Request";
+          });
+      });
+    }
   </script>
 
 </body>
